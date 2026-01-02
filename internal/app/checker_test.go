@@ -1,0 +1,46 @@
+package app
+
+import (
+	"context"
+	"testing"
+	"time"
+
+	"DomainC/domain"
+)
+
+type fakeWhois struct{ result string }
+
+func (f fakeWhois) Query(ctx context.Context, domain string) (string, error) {
+	return f.result, nil
+}
+
+type fakeRepo struct{ saved []domain.DomainSource }
+
+func (r *fakeRepo) LoadSources() ([]domain.DomainSource, error) { return nil, nil }
+
+func (r *fakeRepo) SaveExpiring(domains []domain.DomainSource) error {
+	r.saved = append(r.saved, domains...)
+	return nil
+}
+
+func TestExpiryCheckerFiltersByAlertWindow(t *testing.T) {
+	expiry := time.Now().Add(24 * time.Hour).Format("2006-01-02")
+	checker := &ExpiryCheckerService{
+		Whois:       fakeWhois{result: "Expiration Date: " + expiry},
+		Repo:        &fakeRepo{},
+		AlertWithin: 48 * time.Hour,
+	}
+
+	domains := []domain.DomainSource{{Domain: "example.com", Source: "test"}}
+	got, err := checker.Check(context.Background(), domains)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if len(got) != 1 {
+		t.Fatalf("expected 1 domain, got %d", len(got))
+	}
+	if got[0].Expiry != expiry {
+		t.Fatalf("unexpected expiry %s", got[0].Expiry)
+	}
+}

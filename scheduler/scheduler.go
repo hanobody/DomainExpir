@@ -1,11 +1,18 @@
 package scheduler
 
 import (
+	"context"
 	"log"
 	"time"
 )
 
-func ScheduleDailyAt(hour, min int, job func()) {
+type DailyScheduler struct{}
+
+func NewDailyScheduler() *DailyScheduler {
+	return &DailyScheduler{}
+}
+
+func (s *DailyScheduler) ScheduleDaily(ctx context.Context, hour, min int, job func()) {
 	go func() {
 		for {
 			now := time.Now()
@@ -13,9 +20,16 @@ func ScheduleDailyAt(hour, min int, job func()) {
 			if now.After(next) {
 				next = next.Add(24 * time.Hour)
 			}
-			wait := next.Sub(now)
+			wait := time.Until(next)
 			log.Printf("距离下次任务还有: %v", wait)
-			time.Sleep(wait)
+
+			timer := time.NewTimer(wait)
+			select {
+			case <-ctx.Done():
+				timer.Stop()
+				return
+			case <-timer.C:
+			}
 			job()
 		}
 	}()

@@ -1,11 +1,8 @@
 package domain
 
 import (
-	"bufio"
 	"context"
 	"log"
-	"os"
-	"strings"
 
 	"DomainC/cfclient"
 	"DomainC/config"
@@ -33,32 +30,20 @@ func ParseExpiry(whois string) string {
 	return tools.ExtractExpiry(whois)
 }
 
-func SaveExpiring(domains []DomainSource, path string) error {
-	f, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	w := bufio.NewWriter(f)
-	for _, d := range domains {
-		_, _ = w.WriteString(d.Domain + "|" + d.Source + "|" + d.Expiry + "\n")
-	}
-	return w.Flush()
-}
-
 type Service struct {
-	CF cfclient.Client
+	CF   cfclient.Client
+	Repo Repository
 }
 
-func NewService(cf cfclient.Client) *Service {
+func NewService(cf cfclient.Client, r Repository) *Service {
 	if cf == nil {
 		cf = cfclient.NewClient()
 	}
-	return &Service{CF: cf}
+	return &Service{CF: cf, Repo: r}
 }
 
-// CollectAll 从 CF 账户和本地文件收集所有域名
-func (s *Service) CollectAll(accounts []config.CF, files []string) ([]DomainSource, error) {
+// CollectAll 从 CF 账户和仓库收集所有域名
+func (s *Service) CollectAll(accounts []config.CF) ([]DomainSource, error) {
 	var out []DomainSource
 
 	for _, acc := range accounts {
@@ -76,23 +61,13 @@ func (s *Service) CollectAll(accounts []config.CF, files []string) ([]DomainSour
 		}
 	}
 
-	for _, f := range files {
-		fd, err := os.Open(f)
+	if s.Repo != nil {
+		sources, err := s.Repo.LoadSources()
 		if err != nil {
-			log.Printf("无法打开文件 %s: %v", f, err)
-			continue
+			return nil, err
 		}
-		sc := bufio.NewScanner(fd)
-		for sc.Scan() {
-			d := strings.TrimSpace(sc.Text())
-			if d != "" {
-				out = append(out, DomainSource{Domain: d, Source: f, IsCF: false})
-			}
-		}
-		if err := sc.Err(); err != nil {
-			log.Printf("读取文件 %s 时出错: %v", f, err)
-		}
-		fd.Close()
+		out = append(out, sources...)
 	}
+
 	return out, nil
 }

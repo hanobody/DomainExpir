@@ -1,74 +1,45 @@
 package telegram
 
 import (
-	"DomainC/config"
+	"context"
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
+
+var defaultSender Sender = NoopSender{}
 
 type Button struct {
 	Text         string
 	CallbackData string
 }
 
-var Bot *tgbotapi.BotAPI
-
-func Init() error {
-	token := config.Cfg.Telegram.BotToken
-	if token == "" {
-		return nil
+func SetDefaultSender(sender Sender) {
+	if sender != nil {
+		defaultSender = sender
 	}
-	b, err := tgbotapi.NewBotAPI(token)
-	if err != nil {
-		return err
-	}
-	Bot = b
-	Bot.Debug = false
-	log.Printf("已登录 Telegram: %s", Bot.Self.UserName)
-	return nil
 }
 
-func SendAlert(chatID int64, msg string) {
-	message := tgbotapi.NewMessage(chatID, msg)
-	message.ParseMode = "Markdown"
-	Bot.Send(message)
+func DefaultSender() Sender {
+	return defaultSender
 }
 
 func SendTelegramAlert(msg string) {
-	chatID := int64(config.Cfg.Telegram.ChatID)
-	message := tgbotapi.NewMessage(chatID, msg)
-	message.ParseMode = "Markdown"
-	Bot.Send(message)
+	if err := defaultSender.Send(context.Background(), msg); err != nil {
+		log.Printf("发送 Telegram 消息失败: %v", err)
+	}
 }
 
 func SendTelegramAlertWithButtons(msg string, buttons [][]Button) {
-	chatID := int64(config.Cfg.Telegram.ChatID)
-	message := tgbotapi.NewMessage(chatID, msg)
-
-	var rows [][]tgbotapi.InlineKeyboardButton
-	for _, r := range buttons {
-		var row []tgbotapi.InlineKeyboardButton
-		for _, b := range r {
-			row = append(row, tgbotapi.NewInlineKeyboardButtonData(b.Text, b.CallbackData))
-		}
-		rows = append(rows, row)
+	if err := defaultSender.SendWithButtons(context.Background(), msg, buttons); err != nil {
+		log.Printf("发送 Telegram 按钮消息失败: %v", err)
 	}
-
-	keyboard := tgbotapi.NewInlineKeyboardMarkup(rows...)
-	message.ReplyMarkup = keyboard
-	Bot.Send(message)
 }
 
 func StartListener(handleCallback func(data string, user *tgbotapi.User)) {
-	u := tgbotapi.NewUpdate(0)
-	u.Timeout = 60
-	updates := Bot.GetUpdatesChan(u)
-	for up := range updates {
-		if up.CallbackQuery != nil {
-			handleCallback(up.CallbackQuery.Data, up.CallbackQuery.From)
-			cb := tgbotapi.NewCallback(up.CallbackQuery.ID, "操作已收到")
-			Bot.Send(cb)
+	go func() {
+		if err := defaultSender.StartListener(context.Background(), handleCallback); err != nil {
+			log.Printf("Telegram 监听异常: %v", err)
 		}
-	}
+	}()
 }

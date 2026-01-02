@@ -1,0 +1,68 @@
+package domain
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+// FileRepository 基于文件的域名仓库实现。
+type FileRepository struct {
+	sourcesPaths   []string
+	expiringTarget string
+}
+
+func NewFileRepository(sources []string, expiringPath string) *FileRepository {
+	return &FileRepository{sourcesPaths: sources, expiringTarget: expiringPath}
+}
+
+// LoadSources 读取配置的源文件，每行一个域名，忽略空行和注释。
+func (r *FileRepository) LoadSources() ([]DomainSource, error) {
+	var out []DomainSource
+	for _, path := range r.sourcesPaths {
+		file, err := os.Open(path)
+		if err != nil {
+			return nil, fmt.Errorf("无法打开域名文件 %s: %w", path, err)
+		}
+
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			line := strings.TrimSpace(scanner.Text())
+			if line == "" {
+				continue
+			}
+			out = append(out, DomainSource{Domain: line, Source: path})
+		}
+
+		if err := scanner.Err(); err != nil {
+			file.Close()
+			return nil, fmt.Errorf("读取域名文件 %s 出错: %w", path, err)
+		}
+		file.Close()
+	}
+	return out, nil
+}
+
+// SaveExpiring 将即将到期的域名写入指定文件，使用统一的分隔符和格式。
+func (r *FileRepository) SaveExpiring(domains []DomainSource) error {
+	file, err := os.Create(r.expiringTarget)
+	if err != nil {
+		return fmt.Errorf("创建到期缓存文件失败: %w", err)
+	}
+	defer file.Close()
+
+	writer := bufio.NewWriter(file)
+	for _, ds := range domains {
+		if _, err := writer.WriteString(
+			fmt.Sprintf("%s|%s|%s\n", strings.TrimSpace(ds.Domain), strings.TrimSpace(ds.Source), strings.TrimSpace(ds.Expiry)),
+		); err != nil {
+			return fmt.Errorf("写入到期缓存失败: %w", err)
+		}
+	}
+
+	if err := writer.Flush(); err != nil {
+		return fmt.Errorf("刷新到期缓存失败: %w", err)
+	}
+	return nil
+}

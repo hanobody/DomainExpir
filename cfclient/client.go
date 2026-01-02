@@ -3,6 +3,7 @@ package cfclient
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"DomainC/config"
 
@@ -33,6 +34,9 @@ func NewClient() Client {
 
 // DeleteDomain 从 Cloudflare 删除 zone
 func (c *apiClient) DeleteDomain(ctx context.Context, account config.CF, domain string) error {
+	ctx, cancel := ensureTimeout(ctx)
+	defer cancel()
+
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
@@ -61,6 +65,9 @@ func DeleteDomain(account config.CF, domain string) error {
 
 // ListDNSRecords 返回指定域名的解析记录
 func (c *apiClient) ListDNSRecords(ctx context.Context, account config.CF, domain string) ([]cloudflare.DNSRecord, error) {
+	ctx, cancel := ensureTimeout(ctx)
+	defer cancel()
+
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return nil, fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
@@ -92,6 +99,9 @@ func ListDNSRecords(account config.CF, domain string) ([]cloudflare.DNSRecord, e
 
 // PauseDomain 设置 zone 的 paused 状态
 func (c *apiClient) PauseDomain(ctx context.Context, account config.CF, domain string, pause bool) error {
+	ctx, cancel := ensureTimeout(ctx)
+	defer cancel()
+
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
@@ -123,6 +133,9 @@ func PauseDomain(account config.CF, domain string, pause bool) error {
 
 // FetchActiveDomains 返回账户下处于 active 且未 paused 的域名
 func (c *apiClient) FetchActiveDomains(ctx context.Context, account config.CF) ([]DomainInfo, error) {
+	ctx, cancel := ensureTimeout(ctx)
+	defer cancel()
+
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return nil, fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
@@ -158,4 +171,11 @@ func GetAccountByLabel(label string) *config.CF {
 		}
 	}
 	return nil
+}
+
+func ensureTimeout(ctx context.Context) (context.Context, context.CancelFunc) {
+	if _, ok := ctx.Deadline(); ok {
+		return ctx, func() {}
+	}
+	return context.WithTimeout(ctx, 30*time.Second)
 }
