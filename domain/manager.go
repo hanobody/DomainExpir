@@ -16,8 +16,6 @@ type DomainSource struct {
 	IsCF   bool
 }
 
-// fetchActiveDomainsFromCF 已迁移到 cfclient 包，由 cfclient.Client 提供实现。
-
 func DaysUntil(expiry string) (int, error) {
 	return tools.DaysUntilExpiry(expiry)
 }
@@ -26,7 +24,7 @@ func CheckWhois(domain string) string {
 	return tools.CheckWhois(domain)
 }
 
-func ParseExpiry(whois string) string {
+func ParseExpiry(whois string) (string, bool) {
 	return tools.ExtractExpiry(whois)
 }
 
@@ -42,7 +40,6 @@ func NewService(cf cfclient.Client, r Repository) *Service {
 	return &Service{CF: cf, Repo: r}
 }
 
-// CollectAll 从 CF 账户和仓库收集所有域名
 func (s *Service) CollectAll(accounts []config.CF) ([]DomainSource, error) {
 	var out []DomainSource
 

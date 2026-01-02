@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"DomainC/cfclient"
@@ -47,7 +48,22 @@ func (n *NotifierService) Notify(ctx context.Context, domains []domain.DomainSou
 	}
 	return nil
 }
+func (n *NotifierService) NotifyFailures(ctx context.Context, failures []domain.FailureRecord) error {
+	if n.Sender == nil {
+		return ErrMissingDependencies
+	}
+	if len(failures) == 0 {
+		return nil
+	}
 
+	var builder strings.Builder
+	builder.WriteString("【到期时间获取失败】\n")
+	for _, f := range failures {
+		builder.WriteString(fmt.Sprintf("- %s (来源: %s): %s\n", f.Domain, f.Source, f.Reason))
+	}
+
+	return n.Sender.Send(ctx, builder.String())
+}
 func (n *NotifierService) notifyCloudflare(ctx context.Context, ds domain.DomainSource, days int) {
 	msg := fmt.Sprintf(
 		"【域名即将到期】\n域名: %s\n来源: %s\n到期时间: %s\n注意：如果没人响应，遇到到期后将自动从CF删除",

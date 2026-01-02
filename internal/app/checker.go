@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -21,9 +22,9 @@ type ExpiryCheckerService struct {
 	QueryTimeout time.Duration
 }
 
-func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.DomainSource) ([]domain.DomainSource, error) {
+func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.DomainSource) ([]domain.DomainSource, []domain.FailureRecord, error) {
 	if c.Whois == nil {
-		return nil, ErrMissingDependencies
+		return nil, nil, ErrMissingDependencies
 	}
 	if c.AlertWithin == 0 {
 		c.AlertWithin = 24 * time.Hour
@@ -35,11 +36,12 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 	}
 
 	var expiring []domain.DomainSource
+	var failures []domain.FailureRecord
 	for i, ds := range domains {
 		if i > 0 && ticker != nil {
 			select {
 			case <-ctx.Done():
-				return expiring, ctx.Err()
+				return expiring, failures, ctx.Err()
 			case <-ticker.C:
 			}
 		}
@@ -53,13 +55,19 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 		cancel()
 		if err != nil {
 			log.Printf("WHOIS 查询失败 (%s): %v", ds.Domain, err)
+			failures = append(failures, domain.FailureRecord{Domain: ds.Domain, Source: ds.Source, Reason: err.Error()})
 			continue
 		}
 
-		expiry := tools.ExtractExpiry(result)
+		expiry, ok := tools.ExtractExpiry(result)
+		if !ok {
+			failures = append(failures, domain.FailureRecord{Domain: ds.Domain, Source: ds.Source, Reason: truncateReason("未找到到期时间字段: " + result)})
+			continue
+		}
 		expiryTime, err := time.Parse("2006-01-02", expiry)
 		if err != nil {
 			log.Printf("解析到期时间失败 [%s]: %v", ds.Domain, err)
+			failures = append(failures, domain.FailureRecord{Domain: ds.Domain, Source: ds.Source, Reason: fmt.Sprintf("解析失败: %v", err)})
 			continue
 		}
 
@@ -71,8 +79,19 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 
 	if c.Repo != nil {
 		if err := c.Repo.SaveExpiring(expiring); err != nil {
-			return expiring, err
+			return expiring, failures, err
+		}
+		if err := c.Repo.SaveFailures(failures); err != nil {
+			return expiring, failures, err
 		}
 	}
-	return expiring, nil
+	return expiring, failures, nil
+}
+
+func truncateReason(reason string) string {
+	const maxLen = 200
+	if len(reason) <= maxLen {
+		return reason
+	}
+	return reason[:maxLen] + "..."
 }

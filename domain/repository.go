@@ -6,4 +6,6 @@ type Repository interface {
 	LoadSources() ([]DomainSource, error)
 	// SaveExpiring 写入即将到期的域名列表，便于后续通知或缓存。
 	SaveExpiring(domains []DomainSource) error
+	// SaveFailures 写入解析失败的域名列表，便于排查与人工处理。
+	SaveFailures(failures []FailureRecord) error
 }

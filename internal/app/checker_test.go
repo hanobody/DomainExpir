@@ -23,6 +23,8 @@ func (r *fakeRepo) SaveExpiring(domains []domain.DomainSource) error {
 	return nil
 }
 
+func (r *fakeRepo) SaveFailures([]domain.FailureRecord) error { return nil }
+
 func TestExpiryCheckerFiltersByAlertWindow(t *testing.T) {
 	expiry := time.Now().Add(24 * time.Hour).Format("2006-01-02")
 	checker := &ExpiryCheckerService{
@@ -32,9 +34,13 @@ func TestExpiryCheckerFiltersByAlertWindow(t *testing.T) {
 	}
 
 	domains := []domain.DomainSource{{Domain: "example.com", Source: "test"}}
-	got, err := checker.Check(context.Background(), domains)
+	got, failures, err := checker.Check(context.Background(), domains)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if len(failures) != 0 {
+		t.Fatalf("expected 0 failures, got %d", len(failures))
 	}
 
 	if len(got) != 1 {
@@ -42,5 +48,28 @@ func TestExpiryCheckerFiltersByAlertWindow(t *testing.T) {
 	}
 	if got[0].Expiry != expiry {
 		t.Fatalf("unexpected expiry %s", got[0].Expiry)
+	}
+}
+
+func TestExpiryCheckerReturnsFailures(t *testing.T) {
+	checker := &ExpiryCheckerService{
+		Whois:       fakeWhois{result: "NOTICE: The expiration date displayed in this record is the date the"},
+		Repo:        &fakeRepo{},
+		AlertWithin: 48 * time.Hour,
+	}
+
+	domains := []domain.DomainSource{{Domain: "nodate.com", Source: "test"}}
+	expiring, failures, err := checker.Check(context.Background(), domains)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(expiring) != 0 {
+		t.Fatalf("expected no expiring domains, got %d", len(expiring))
+	}
+	if len(failures) != 1 {
+		t.Fatalf("expected 1 failure, got %d", len(failures))
+	}
+	if failures[0].Domain != "nodate.com" {
+		t.Fatalf("unexpected domain in failure: %s", failures[0].Domain)
 	}
 }

@@ -10,10 +10,15 @@ import (
 	"github.com/openrdap/rdap"
 )
 
-func ExtractExpiry(result string) string {
+func ExtractExpiry(result string) (string, bool) {
 	var expiryRegex = regexp.MustCompile(
-		`(?i)\b(expiration date|expiration|expiry|expires|expires on|registry expiry date|registry expiration date|paid-till)\b[^0-9A-Za-z]*([0-9A-Za-z ,:/\-T\.Z]+)`,
+		`(?i)\b(expiration date|expiration|expiry|expires|expires on|registry expiry date|registry expiration date|paid-till)\b[^0-9A-Za-z]*([0-9A-Za-z ,:/\-T\.Z+]+)`,
 	)
+	// 兜底匹配常见的日期格式，避免服务响应中没有明确的关键字。
+	var dateRegex = regexp.MustCompile(
+		`\b\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?\b`,
+	)
+
 	layouts := []string{
 		"2006-01-02",
 		"2006/01/02",
@@ -28,20 +33,32 @@ func ExtractExpiry(result string) string {
 		"2006-01-02 15:04:05",
 	}
 
-	match := expiryRegex.FindStringSubmatch(result)
-	if len(match) < 3 {
-		return result
+	parseWithLayouts := func(dateStr string) (string, bool) {
+		cleaned := strings.TrimSpace(strings.Trim(dateStr, ":"))
+		cleaned = strings.Join(strings.Fields(cleaned), " ")
+
+		for _, layout := range layouts {
+			if t, err := time.Parse(layout, cleaned); err == nil {
+				return t.Format("2006-01-02"), true
+			}
+		}
+
+		return "", false
 	}
 
-	dateStr := strings.Join(strings.Fields(match[2]), " ")
-
-	for _, layout := range layouts {
-		if t, err := time.Parse(layout, dateStr); err == nil {
-			return t.Format("2006-01-02")
+	if match := expiryRegex.FindStringSubmatch(result); len(match) >= 3 {
+		if parsed, ok := parseWithLayouts(match[2]); ok {
+			return parsed, true
 		}
 	}
 
-	return result
+	if match := dateRegex.FindString(result); match != "" {
+		if parsed, ok := parseWithLayouts(match); ok {
+			return parsed, true
+		}
+	}
+
+	return "", false
 }
 
 type Button struct {

@@ -14,11 +14,12 @@ type DomainCollector interface {
 }
 
 type ExpiryChecker interface {
-	Check(ctx context.Context, domains []domain.DomainSource) ([]domain.DomainSource, error)
+	Check(ctx context.Context, domains []domain.DomainSource) ([]domain.DomainSource, []domain.FailureRecord, error)
 }
 
 type Notifier interface {
 	Notify(ctx context.Context, domains []domain.DomainSource) error
+	NotifyFailures(ctx context.Context, failures []domain.FailureRecord) error
 }
 
 type Scheduler interface {
@@ -46,17 +47,21 @@ func (a *App) Run(ctx context.Context) error {
 			return
 		}
 
-		expiring, err := a.Checker.Check(ctx, domains)
+		expiring, failures, err := a.Checker.Check(ctx, domains)
 		if err != nil {
 			log.Printf("检测到期失败: %v", err)
 		}
 
-		if len(expiring) == 0 {
-			return
+		if len(expiring) > 0 {
+			if err := a.Notifier.Notify(ctx, expiring); err != nil {
+				log.Printf("发送通知失败: %v", err)
+			}
 		}
 
-		if err := a.Notifier.Notify(ctx, expiring); err != nil {
-			log.Printf("发送通知失败: %v", err)
+		if len(failures) > 0 {
+			if err := a.Notifier.NotifyFailures(ctx, failures); err != nil {
+				log.Printf("发送失败通知失败: %v", err)
+			}
 		}
 	}
 

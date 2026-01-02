@@ -11,10 +11,11 @@ import (
 type FileRepository struct {
 	sourcesPaths   []string
 	expiringTarget string
+	failureTarget  string
 }
 
-func NewFileRepository(sources []string, expiringPath string) *FileRepository {
-	return &FileRepository{sourcesPaths: sources, expiringTarget: expiringPath}
+func NewFileRepository(sources []string, expiringPath, failurePath string) *FileRepository {
+	return &FileRepository{sourcesPaths: sources, expiringTarget: expiringPath, failureTarget: failurePath}
 }
 
 // LoadSources 读取配置的源文件，每行一个域名，忽略空行和注释。
@@ -63,6 +64,27 @@ func (r *FileRepository) SaveExpiring(domains []DomainSource) error {
 
 	if err := writer.Flush(); err != nil {
 		return fmt.Errorf("刷新到期缓存失败: %w", err)
+	}
+	return nil
+}
+func (r *FileRepository) SaveFailures(failures []FailureRecord) error {
+	file, err := os.Create(r.failureTarget)
+	if err != nil {
+		return fmt.Errorf("创建失败记录文件失败: %w", err)
+	}
+	defer file.Close()
+
+	writer := bufio.NewWriter(file)
+	for _, f := range failures {
+		if _, err := writer.WriteString(
+			fmt.Sprintf("%s|%s|%s\n", strings.TrimSpace(f.Domain), strings.TrimSpace(f.Source), strings.TrimSpace(f.Reason)),
+		); err != nil {
+			return fmt.Errorf("写入失败记录失败: %w", err)
+		}
+	}
+
+	if err := writer.Flush(); err != nil {
+		return fmt.Errorf("刷新失败记录文件失败: %w", err)
 	}
 	return nil
 }

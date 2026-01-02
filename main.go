@@ -14,7 +14,10 @@ import (
 	"DomainC/telegram"
 )
 
-const expiringFile = "expiring_domains.txt"
+const (
+	expiringFile = "expiring_domains.txt"
+	failedFile   = "failed_domains.txt"
+)
 
 func main() {
 	if err := config.Load("config.yaml"); err != nil {
@@ -46,7 +49,7 @@ func main() {
 		}
 	}()
 
-	repository := domain.NewFileRepository(config.Cfg.DomainFiles, expiringFile)
+	repository := domain.NewFileRepository(config.Cfg.DomainFiles, expiringFile, failedFile)
 	cfClient := cfclient.NewClient()
 	service := domain.NewService(cfClient, repository)
 
