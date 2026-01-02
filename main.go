@@ -1,6 +1,7 @@
 package main
 
 import (
+	"DomainC/callback"
 	"DomainC/cfclient"
 	"DomainC/config"
 	"DomainC/domain"
@@ -13,8 +14,6 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func AlertDaysDuration() time.Duration {
@@ -22,59 +21,14 @@ func AlertDaysDuration() time.Duration {
 }
 
 func GetAllDomains(accounts []config.CF, filePaths []string) []domain.DomainSource {
-
-	var allDomains []domain.DomainSource
-
-	// 来自 Cloudflare 的域名
-	for _, acc := range accounts {
-		domains, err := cfclient.FetchActiveDomains(acc)
-		if err != nil {
-			log.Printf("[%s] 获取域名失败: %v\n", acc.Label, err)
-			continue
-		}
-		allDomains = append(allDomains, domains...)
+	svc := domain.NewService(cfclient.NewClient())
+	ds, err := svc.CollectAll(accounts, filePaths)
+	if err != nil {
+		log.Printf("收集域名时发生错误: %v", err)
 	}
-
-	// 来自本地文件的域名
-	for _, filePath := range filePaths {
-		file, err := os.Open(filePath)
-		if err != nil {
-			log.Printf(
-				"无法打开文件 %s: %v\n",
-				filePath,
-				err,
-			)
-			continue
-		}
-
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			domainName := strings.TrimSpace(scanner.Text())
-			if domainName != "" {
-				allDomains = append(allDomains, domain.DomainSource{
-					Domain: domainName,
-					Source: filePath,
-					IsCF:   false,
-				})
-			}
-		}
-		file.Close()
-
-		if err := scanner.Err(); err != nil {
-			log.Printf(
-				"读取文件 %s 时发生错误: %v\n",
-				filePath,
-				err,
-			)
-		}
-	}
-
-	return allDomains
+	return ds
 }
-func SaveExpiringDomainsToFile(
-	domains []domain.DomainSource,
-	filePath string,
-) error {
+func SaveExpiringDomainsToFile(domains []domain.DomainSource, filePath string) error {
 
 	file, err := os.Create(filePath)
 	if err != nil {
@@ -98,22 +52,10 @@ func SaveExpiringDomainsToFile(
 	return writer.Flush()
 }
 
-func getAccountByLabel(label string) *config.CF {
-	for i := range config.Cfg.CloudflareAccounts {
-		if config.Cfg.CloudflareAccounts[i].Label == label {
-			return &config.Cfg.CloudflareAccounts[i]
-		}
-	}
-	return nil
-}
-
 // checkDomains 只执行一次逻辑
 func checkDomains() {
 	files := config.Cfg.DomainFiles
-	allDomains := GetAllDomains(
-		config.Cfg.CloudflareAccounts,
-		files,
-	)
+	allDomains := GetAllDomains(config.Cfg.CloudflareAccounts, files)
 
 	var expiring []domain.DomainSource
 	for _, ds := range allDomains {
@@ -230,8 +172,7 @@ func alertExpiringDomains(filePath string) {
 				continue
 			}
 
-			if ds.Source == "Shengshi6688" ||
-				ds.Source == "yuang6496" {
+			if ds.Source == "Shengshi6688" || ds.Source == "yuang6496" {
 
 				msg := fmt.Sprintf(
 					"【域名即将到期】\n域名: %s\n来源: %s\n到期时间: %s\n注意：如果没人响应，遇到到期后将自动从CF删除",
@@ -280,7 +221,7 @@ func alertExpiringDomains(filePath string) {
 				)
 
 				if days == 1 {
-					account := getAccountByLabel(accountLabel)
+					account := cfclient.GetAccountByLabel(accountLabel)
 					if account == nil {
 						log.Printf(
 							"未找到账号: %s",
@@ -330,128 +271,11 @@ func alertExpiringDomains(filePath string) {
 		time.Sleep(1 * time.Minute)
 	}
 }
-func HandleCallback(callbackData string, user *tgbotapi.User) {
-	parts := strings.Split(callbackData, "|")
-	if len(parts) < 3 {
-		log.Printf("无效的回调数据: %s", callbackData)
-		return
-	}
-
-	action := parts[0]
-	accountLabel := parts[1]
-	domain := parts[2]
-
-	paused := ""
-	if len(parts) >= 4 {
-		paused = parts[3]
-	}
-
-	fmt.Println("处理回调数据:", action, accountLabel, domain)
-
-	switch action {
-	case "pause":
-		go func() {
-			// 异步执行暂停
-			account := getAccountByLabel(accountLabel)
-			if account == nil {
-				log.Printf("未找到账号: %s", accountLabel)
-				return
-			}
-
-			var successMsg, failMsg string
-			if paused == "yes" {
-				successMsg = fmt.Sprintf(
-					"%s禁用域名成功: %s---%s",
-					user.UserName,
-					domain,
-					accountLabel,
-				)
-				failMsg = fmt.Sprintf(
-					"%s禁用域名失败: %s-----%s (%v)",
-					user.UserName,
-					domain,
-					accountLabel,
-					"%v",
-				)
-			} else {
-				successMsg = fmt.Sprintf(
-					"%s解除禁用成功: %s---%s",
-					user.UserName,
-					domain,
-					accountLabel,
-				)
-				failMsg = fmt.Sprintf(
-					"%s解除禁用失败: %s-----%s (%v)",
-					user.UserName,
-					domain,
-					accountLabel,
-					"%v",
-				)
-			}
-
-			err := cfclient.PauseDomain(*account, domain, paused == "yes")
-			if err != nil {
-				telegram.SendTelegramAlert(fmt.Sprintf(failMsg, err))
-			} else {
-				telegram.SendTelegramAlert(successMsg)
-			}
-		}()
-
-	case "DNS":
-		go func() {
-			// 异步执行查询
-			account := getAccountByLabel(accountLabel)
-			if account == nil {
-				log.Printf("未找到账号: %s", accountLabel)
-				return
-			}
-
-			records, err := cfclient.ListDNSRecords(*account, domain)
-			if err != nil {
-				telegram.SendTelegramAlert(fmt.Sprintf(
-					"查询域名解析失败: %s-----%s (%v)",
-					domain,
-					accountLabel,
-					err,
-				))
-			}
-
-			if len(records) == 0 {
-				telegram.SendTelegramAlert(fmt.Sprintf(
-					"域名 %s -----%s 没有任何解析记录。",
-					domain,
-					accountLabel,
-				))
-				return
-			}
-
-			var sb strings.Builder
-			sb.WriteString(fmt.Sprintf(
-				"【域名解析记录】\n域名: %s\n来源: %s\n\n",
-				domain,
-				accountLabel,
-			))
-
-			for _, r := range records {
-				sb.WriteString(fmt.Sprintf(
-					"%s %s → %s (%v)\n",
-					r.Type,
-					r.Name,
-					r.Content,
-					*r.Proxied,
-				))
-			}
-
-			// 发送到 Telegram
-			telegram.SendTelegramAlert(sb.String())
-		}()
-	}
-}
 
 func main() {
 	config.Load("config.yaml")
 	telegram.Init()
-	go telegram.StartListener(HandleCallback)
+	go telegram.StartListener(callback.HandleCallback)
 
 	checkDomains()
 	scheduler.ScheduleDailyAt(15, 0, func() {

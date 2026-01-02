@@ -5,19 +5,40 @@ import (
 	"fmt"
 
 	"DomainC/config"
-	"DomainC/domain"
 
 	cloudflare "github.com/cloudflare/cloudflare-go"
 )
 
+// DomainInfo 是 cfclient 层的域名描述，避免直接依赖 domain 包
+type DomainInfo struct {
+	Domain string
+	Source string
+	IsCF   bool
+}
+
+// Client 定义了 Cloudflare 相关操作的抽象接口
+type Client interface {
+	FetchActiveDomains(ctx context.Context, account config.CF) ([]DomainInfo, error)
+	ListDNSRecords(ctx context.Context, account config.CF, domain string) ([]cloudflare.DNSRecord, error)
+	PauseDomain(ctx context.Context, account config.CF, domain string, pause bool) error
+	DeleteDomain(ctx context.Context, account config.CF, domain string) error
+}
+
+type apiClient struct{}
+
+// NewClient 返回默认的 Cloudflare API 客户端实现
+func NewClient() Client {
+	return &apiClient{}
+}
+
 // DeleteDomain 从 Cloudflare 删除 zone
-func DeleteDomain(account config.CF, domain string) error {
+func (c *apiClient) DeleteDomain(ctx context.Context, account config.CF, domain string) error {
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
 	}
 
-	zones, err := api.ListZonesContext(context.Background(), cloudflare.WithZoneFilters(domain, "", ""))
+	zones, err := api.ListZonesContext(ctx, cloudflare.WithZoneFilters(domain, "", ""))
 	if err != nil {
 		return fmt.Errorf("获取 Zone 失败: %v", err)
 	}
@@ -26,21 +47,26 @@ func DeleteDomain(account config.CF, domain string) error {
 	}
 
 	zoneID := zones.Result[0].ID
-	_, err = api.DeleteZone(context.Background(), zoneID)
+	_, err = api.DeleteZone(ctx, zoneID)
 	if err != nil {
 		return fmt.Errorf("删除域名失败: %v", err)
 	}
 	return nil
 }
 
+// 为兼容旧调用，保留包级函数，转发到默认客户端
+func DeleteDomain(account config.CF, domain string) error {
+	return NewClient().DeleteDomain(context.Background(), account, domain)
+}
+
 // ListDNSRecords 返回指定域名的解析记录
-func ListDNSRecords(account config.CF, domain string) ([]cloudflare.DNSRecord, error) {
+func (c *apiClient) ListDNSRecords(ctx context.Context, account config.CF, domain string) ([]cloudflare.DNSRecord, error) {
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return nil, fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
 	}
 
-	zones, err := api.ListZonesContext(context.Background(), cloudflare.WithZoneFilters(domain, "", ""))
+	zones, err := api.ListZonesContext(ctx, cloudflare.WithZoneFilters(domain, "", ""))
 	if err != nil {
 		return nil, fmt.Errorf("获取 Zone 失败: %v", err)
 	}
@@ -50,7 +76,7 @@ func ListDNSRecords(account config.CF, domain string) ([]cloudflare.DNSRecord, e
 
 	zoneID := zones.Result[0].ID
 	records, _, err := api.ListDNSRecords(
-		context.Background(),
+		ctx,
 		cloudflare.ZoneIdentifier(zoneID),
 		cloudflare.ListDNSRecordsParams{},
 	)
@@ -60,14 +86,18 @@ func ListDNSRecords(account config.CF, domain string) ([]cloudflare.DNSRecord, e
 	return records, nil
 }
 
+func ListDNSRecords(account config.CF, domain string) ([]cloudflare.DNSRecord, error) {
+	return NewClient().ListDNSRecords(context.Background(), account, domain)
+}
+
 // PauseDomain 设置 zone 的 paused 状态
-func PauseDomain(account config.CF, domain string, pause bool) error {
+func (c *apiClient) PauseDomain(ctx context.Context, account config.CF, domain string, pause bool) error {
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
 	}
 
-	zones, err := api.ListZonesContext(context.Background(), cloudflare.WithZoneFilters(domain, "", ""))
+	zones, err := api.ListZonesContext(ctx, cloudflare.WithZoneFilters(domain, "", ""))
 	if err != nil {
 		return fmt.Errorf("获取 Zone 失败: %v", err)
 	}
@@ -77,7 +107,7 @@ func PauseDomain(account config.CF, domain string, pause bool) error {
 
 	zoneID := zones.Result[0].ID
 	_, err = api.EditZone(
-		context.Background(),
+		ctx,
 		zoneID,
 		cloudflare.ZoneOptions{Paused: &pause},
 	)
@@ -87,22 +117,26 @@ func PauseDomain(account config.CF, domain string, pause bool) error {
 	return nil
 }
 
+func PauseDomain(account config.CF, domain string, pause bool) error {
+	return NewClient().PauseDomain(context.Background(), account, domain, pause)
+}
+
 // FetchActiveDomains 返回账户下处于 active 且未 paused 的域名
-func FetchActiveDomains(account config.CF) ([]domain.DomainSource, error) {
+func (c *apiClient) FetchActiveDomains(ctx context.Context, account config.CF) ([]DomainInfo, error) {
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
 		return nil, fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
 	}
 
-	zones, err := api.ListZonesContext(context.Background(), cloudflare.WithZoneFilters("", "", "active"))
+	zones, err := api.ListZonesContext(ctx, cloudflare.WithZoneFilters("", "", "active"))
 	if err != nil {
 		return nil, fmt.Errorf("获取域名失败 [%s]: %v", account.Label, err)
 	}
 
-	var out []domain.DomainSource
+	var out []DomainInfo
 	for _, z := range zones.Result {
 		if !z.Paused {
-			out = append(out, domain.DomainSource{
+			out = append(out, DomainInfo{
 				Domain: z.Name,
 				Source: account.Label,
 				IsCF:   true,
@@ -110,4 +144,18 @@ func FetchActiveDomains(account config.CF) ([]domain.DomainSource, error) {
 		}
 	}
 	return out, nil
+}
+
+func FetchActiveDomains(account config.CF) ([]DomainInfo, error) {
+	return NewClient().FetchActiveDomains(context.Background(), account)
+}
+
+// GetAccountByLabel 返回配置中与 label 匹配的 Cloudflare 账号指针，找不到则返回 nil
+func GetAccountByLabel(label string) *config.CF {
+	for i := range config.Cfg.CloudflareAccounts {
+		if config.Cfg.CloudflareAccounts[i].Label == label {
+			return &config.Cfg.CloudflareAccounts[i]
+		}
+	}
+	return nil
 }
