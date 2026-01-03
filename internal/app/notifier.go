@@ -57,7 +57,7 @@ func (n *NotifierService) NotifyFailures(ctx context.Context, failures []domain.
 	}
 
 	var builder strings.Builder
-	builder.WriteString("【到期时间获取失败】\n")
+	builder.WriteString("【以下域名未能从rdap及whois获取到期时间】\n")
 	for _, f := range failures {
 		builder.WriteString(fmt.Sprintf("- %s (来源: %s): %s\n", f.Domain, f.Source, f.Reason))
 	}

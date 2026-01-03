@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"DomainC/domain"
@@ -38,6 +39,20 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 	var expiring []domain.DomainSource
 	var failures []domain.FailureRecord
 	for i, ds := range domains {
+		if expiryStr := strings.TrimSpace(ds.Expiry); expiryStr != "" {
+			expiryTime, err := time.Parse("2006-01-02", expiryStr)
+			if err != nil {
+				failures = append(failures, domain.FailureRecord{Domain: ds.Domain, Source: ds.Source, Reason: fmt.Sprintf("解析失败: %v", err)})
+				continue
+			}
+
+			if time.Until(expiryTime) <= c.AlertWithin {
+				ds.Expiry = expiryTime.Format("2006-01-02")
+				expiring = append(expiring, ds)
+			}
+			continue
+		}
+
 		if i > 0 && ticker != nil {
 			select {
 			case <-ctx.Done():

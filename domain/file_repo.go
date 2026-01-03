@@ -33,7 +33,24 @@ func (r *FileRepository) LoadSources() ([]DomainSource, error) {
 			if line == "" {
 				continue
 			}
-			out = append(out, DomainSource{Domain: line, Source: path})
+			parts := strings.Split(line, "|")
+			domain := strings.TrimSpace(parts[0])
+			if domain == "" {
+				continue
+			}
+
+			source := strings.TrimSpace(path)
+			if len(parts) >= 2 && strings.TrimSpace(parts[1]) != "" {
+				source = strings.TrimSpace(parts[1])
+			}
+
+			expiry := ""
+			if len(parts) >= 3 {
+				expiry = strings.TrimSpace(parts[2])
+			}
+
+			out = append(out, DomainSource{Domain: domain, Source: source, Expiry: expiry})
+
 		}
 
 		if err := scanner.Err(); err != nil {

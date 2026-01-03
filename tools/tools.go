@@ -15,9 +15,9 @@ func ExtractExpiry(result string) (string, bool) {
 		`(?i)\b(expiration date|expiration|expiry|expires|expires on|registry expiry date|registry expiration date|paid-till)\b[^0-9A-Za-z]*([0-9A-Za-z ,:/\-T\.Z+]+)`,
 	)
 	// 兜底匹配常见的日期格式，避免服务响应中没有明确的关键字。
-	var dateRegex = regexp.MustCompile(
-		`\b\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?\b`,
-	)
+	// var dateRegex = regexp.MustCompile(
+	// 	`\b\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?\b`,
+	// )
 
 	layouts := []string{
 		"2006-01-02",
@@ -52,11 +52,11 @@ func ExtractExpiry(result string) (string, bool) {
 		}
 	}
 
-	if match := dateRegex.FindString(result); match != "" {
-		if parsed, ok := parseWithLayouts(match); ok {
-			return parsed, true
-		}
-	}
+	// if match := dateRegex.FindString(result); match != "" {
+	// 	if parsed, ok := parseWithLayouts(match); ok {
+	// 		return parsed, true
+	// 	}
+	// }
 
 	return "", false
 }
@@ -66,29 +66,91 @@ type Button struct {
 	CallbackData string
 }
 
+// func CheckWhois(domain string) string {
+// 	client := &rdap.Client{}
+
+// 	d, err := client.QueryDomain(domain)
+// 	if err == nil {
+// 		for _, event := range d.Events {
+// 			if event.Action == "expiration" {
+// 				return fmt.Sprintf("%s: RDAP Expiration Date: %s", domain, event.Date)
+// 			}
+// 		}
+// 	}
+// 	result, err := whois.Whois(domain)
+// 	if err != nil {
+// 		return fmt.Sprintf("%s 查询失败:  WHOIS错误: %v", domain, err)
+// 	}
+
+// 	for _, line := range strings.Split(result, "\n") {
+// 		if strings.Contains(strings.ToLower(line), "expir") {
+// 			return fmt.Sprintf("%s: %s", domain, line)
+// 		}
+// 	}
+
+//		return fmt.Sprintf("[%s]%s: ", domain, result)
+//	}
 func CheckWhois(domain string) string {
 	client := &rdap.Client{}
 
+	// 1) RDAP 优先
 	d, err := client.QueryDomain(domain)
 	if err == nil {
 		for _, event := range d.Events {
-			if event.Action == "expiration" {
+			if strings.EqualFold(event.Action, "expiration") {
 				return fmt.Sprintf("%s: RDAP Expiration Date: %s", domain, event.Date)
 			}
 		}
 	}
+
+	// 2) WHOIS
 	result, err := whois.Whois(domain)
 	if err != nil {
-		return fmt.Sprintf("%s 查询失败:  WHOIS错误: %v", domain, err)
+		return fmt.Sprintf("%s 查询失败: WHOIS错误: %v", domain, err)
 	}
 
-	for _, line := range strings.Split(result, "\n") {
-		if strings.Contains(strings.ToLower(line), "expir") {
-			return fmt.Sprintf("%s: %s", domain, line)
+	// 统一换行
+	result = strings.ReplaceAll(result, "\r\n", "\n")
+
+	// 优先字段（更像真正的到期日期）
+	keys := []string{
+		"Registry Expiry Date:",
+		"Registrar Registration Expiration Date:",
+		"Expiration Date:",
+		"Expiry Date:",
+		"expires:",
+		"paid-till:",
+	}
+
+	for _, raw := range strings.Split(result, "\n") {
+		line := strings.TrimSpace(raw)
+		if line == "" {
+			continue
+		}
+
+		lower := strings.ToLower(line)
+
+		// 跳过提示/免责声明行
+		if strings.HasPrefix(lower, "notice:") ||
+			strings.Contains(lower, "terms of use") ||
+			strings.Contains(lower, "disclaimer") ||
+			strings.Contains(lower, "policy") {
+			continue
+		}
+
+		for _, k := range keys {
+			if strings.HasPrefix(line, k) {
+				return fmt.Sprintf("%s: %s", domain, line)
+			}
 		}
 	}
 
-	return fmt.Sprintf("[%s]%s: ", domain, result)
+	// 找不到就给个“截断版摘要”，避免 UI/日志把你整段截断得更难看
+	snippet := result
+	if len(snippet) > 800 {
+		snippet = snippet[:800] + " ... (truncated)"
+	}
+	return fmt.Sprintf("%s: WHOIS未找到明确的到期字段，原文摘要: %s", domain, snippet)
 }
 
 func DaysUntilExpiry(expiry string) (int, error) {

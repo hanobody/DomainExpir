@@ -14,6 +14,13 @@ func (f fakeWhois) Query(ctx context.Context, domain string) (string, error) {
 	return f.result, nil
 }
 
+type countingWhois struct{ calls int }
+
+func (c *countingWhois) Query(ctx context.Context, domain string) (string, error) {
+	c.calls++
+	return "", nil
+}
+
 type fakeRepo struct{ saved []domain.DomainSource }
 
 func (r *fakeRepo) LoadSources() ([]domain.DomainSource, error) { return nil, nil }
@@ -71,5 +78,33 @@ func TestExpiryCheckerReturnsFailures(t *testing.T) {
 	}
 	if failures[0].Domain != "nodate.com" {
 		t.Fatalf("unexpected domain in failure: %s", failures[0].Domain)
+	}
+}
+func TestExpiryCheckerUsesProvidedExpiry(t *testing.T) {
+	expiry := time.Now().Add(24 * time.Hour).Format("2006-01-02")
+	repo := &fakeRepo{}
+	whois := &countingWhois{}
+	checker := &ExpiryCheckerService{
+		Whois:       whois,
+		Repo:        repo,
+		AlertWithin: 48 * time.Hour,
+	}
+
+	domains := []domain.DomainSource{{Domain: "prefilled.com", Source: "file", Expiry: expiry}}
+	got, failures, err := checker.Check(context.Background(), domains)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if len(failures) != 0 {
+		t.Fatalf("expected no failures, got %d", len(failures))
+	}
+
+	if len(got) != 1 || got[0].Domain != "prefilled.com" {
+		t.Fatalf("expected domain from provided expiry to be returned")
+	}
+
+	if whois.calls != 0 {
+		t.Fatalf("expected whois not to be called when expiry is provided")
 	}
 }
