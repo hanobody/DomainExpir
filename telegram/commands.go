@@ -20,6 +20,7 @@ type CommandHandler struct {
 	Accounts []config.CF
 	Sender   Sender
 	ChatID   int64
+	operator *tgbotapi.User
 }
 
 func NewCommandHandler(cf cfclient.Client, sender Sender, accounts []config.CF, chatID int64) *CommandHandler {
@@ -43,7 +44,7 @@ func (h *CommandHandler) HandleMessage(msg *tgbotapi.Message) {
 	if !msg.IsCommand() {
 		return
 	}
-
+	h.operator = msg.From
 	args := strings.Fields(msg.CommandArguments())
 	switch msg.Command() {
 	case "dns":
@@ -52,6 +53,8 @@ func (h *CommandHandler) HandleMessage(msg *tgbotapi.Message) {
 		go h.handleGetNSCommand(args)
 	case "status":
 		go h.handleStatusCommand(args)
+	case "delete":
+		go h.handleDeleteCommand(args)
 	case "setdns":
 		go h.handleSetDNSCommand(args)
 	}
@@ -143,7 +146,45 @@ func (h *CommandHandler) handleStatusCommand(args []string) {
 	status := fmt.Sprintf("域名: %s\n账号: %s\n状态: %s\nPaused: %v", zone.Name, account.Label, zone.Status, zone.Paused)
 	h.sendText(status)
 }
+func (h *CommandHandler) handleDeleteCommand(args []string) {
+	if len(args) < 1 {
+		h.sendText("用法: /delete <domain.com>")
+		return
+	}
+	domain := strings.ToLower(args[0])
+	op := formatOperator(h.operator)
+	account, _, err := h.findZone(domain)
+	if err != nil {
+		if errors.Is(err, cfclient.ErrZoneNotFound) {
+			h.sendText(fmt.Sprintf("域名 %s 不存在于 Cloudflare。", domain))
+			return
+		}
+		h.sendText(fmt.Sprintf("查询域名失败: %v", err))
+		return
+	}
+	confirmMsg := fmt.Sprintf(
+		"⚠️【删除二次确认】\n操作人: %s\n域名: %s\n账号: %s\n\n此操作不可逆，确认要删除该域名（Cloudflare Zone）吗？", op, domain, account.Label,
+	)
 
+	buttons := [][]Button{{
+		{Text: "✅ 确认删除", CallbackData: fmt.Sprintf("delete_confirm|%s|%s", account.Label, domain)},
+		{Text: "❌ 取消", CallbackData: fmt.Sprintf("delete_cancel|%s|%s", account.Label, domain)},
+	}}
+
+	SendTelegramAlertWithButtons(confirmMsg, buttons)
+	// account, err := h.deleteZone(domain)
+	// if err != nil {
+	// 	if errors.Is(err, cfclient.ErrZoneNotFound) {
+	// 		h.sendText(fmt.Sprintf("域名 %s 不存在于 Cloudflare。", domain))
+	// 		return
+	// 	}
+	// 	h.sendText(fmt.Sprintf("删除失败: %v", err))
+	// 	return
+	// }
+
+	// text := fmt.Sprintf("域名: %s\n账号: %s", domain, account.Label)
+	// h.sendText(text)
+}
 func (h *CommandHandler) handleSetDNSCommand(args []string) {
 	if len(args) < 4 {
 		h.sendText("用法: /setdns <type> <sub.domain.com> <target> <on|off>")
@@ -208,6 +249,25 @@ func (h *CommandHandler) findZone(domain string) (*config.CF, cfclient.ZoneDetai
 	}
 	return nil, cfclient.ZoneDetail{}, lastErr
 }
+func (h *CommandHandler) deleteZone(domain string) (*config.CF, error) {
+	var lastErr error
+	for i := range h.Accounts {
+		acc := h.Accounts[i]
+		err := h.CFClient.DeleteDomain(context.Background(), acc, domain)
+		if err != nil {
+			if errors.Is(err, cfclient.ErrZoneNotFound) {
+				lastErr = err
+				continue
+			}
+			return nil, err
+		}
+		return &acc, nil
+	}
+	if lastErr == nil {
+		lastErr = cfclient.ErrZoneNotFound
+	}
+	return nil, lastErr
+}
 
 // defaultAccount 随机返回一个 Cloudflare 账号配置
 func (h *CommandHandler) defaultAccount() *config.CF {
@@ -232,4 +292,17 @@ func deriveDomainFromName(name string) string {
 		return strings.Join(parts[len(parts)-2:], ".")
 	}
 	return ""
+}
+func formatOperator(u *tgbotapi.User) string {
+	if u == nil {
+		return "unknown"
+	}
+	if u.UserName != "" {
+		return "@" + u.UserName
+	}
+	name := strings.TrimSpace(u.FirstName + " " + u.LastName)
+	if name != "" {
+		return name
+	}
+	return fmt.Sprintf("id:%d", u.ID)
 }

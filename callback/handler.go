@@ -82,19 +82,55 @@ func HandleCallback(callbackData string, user *tgbotapi.User) {
 
 			telegram.SendTelegramAlert(sb.String())
 		}()
+	// case "delete":
+	// 	go func() {
+	// 		account := cfclient.GetAccountByLabel(accountLabel)
+	// 		if account == nil {
+	// 			log.Printf("未找到账号: %s", accountLabel)
+	// 			return
+	// 		}
+	// 		err := cfclient.DeleteDomain(*account, domain)
+	// 		if err != nil {
+	// 			telegram.SendTelegramAlert(fmt.Sprintf("删除域名失败: %s-----%s (%v)", domain, accountLabel, err))
+	// 			return
+	// 		}
+	// 		telegram.SendTelegramAlert(fmt.Sprintf("删除域名成功: %s-----%s", domain, accountLabel))
+	// 	}()
 	case "delete":
+		go func() {
+			confirmMsg := fmt.Sprintf(
+				"⚠️【删除二次确认】\n操作人: %s\n域名: %s\n账号: %s\n\n此操作不可逆，确认要删除该域名（Cloudflare Zone）吗？",
+				user.UserName, domain, accountLabel,
+			)
+
+			buttons := [][]telegram.Button{{
+				{Text: "✅ 确认删除", CallbackData: fmt.Sprintf("delete_confirm|%s|%s", accountLabel, domain)},
+				{Text: "❌ 取消", CallbackData: fmt.Sprintf("delete_cancel|%s|%s", accountLabel, domain)},
+			}}
+
+			telegram.SendTelegramAlertWithButtons(confirmMsg, buttons)
+		}()
+
+	case "delete_confirm":
 		go func() {
 			account := cfclient.GetAccountByLabel(accountLabel)
 			if account == nil {
 				log.Printf("未找到账号: %s", accountLabel)
 				return
 			}
+
 			err := cfclient.DeleteDomain(*account, domain)
+			// err := NewClient.DeleteDomain(context.Background(), account, domain)
 			if err != nil {
 				telegram.SendTelegramAlert(fmt.Sprintf("删除域名失败: %s-----%s (%v)", domain, accountLabel, err))
 				return
 			}
-			telegram.SendTelegramAlert(fmt.Sprintf("删除域名成功: %s-----%s", domain, accountLabel))
+			telegram.SendTelegramAlert(fmt.Sprintf("✅ 删除域名成功: %s-----%s (操作人:%s)", domain, accountLabel, user.UserName))
+		}()
+
+	case "delete_cancel":
+		go func() {
+			telegram.SendTelegramAlert(fmt.Sprintf("已取消删除: %s-----%s (操作人:%s)", domain, accountLabel, user.UserName))
 		}()
 	}
 
