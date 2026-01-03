@@ -75,6 +75,7 @@ func (n *NotifierService) notifyCloudflare(ctx context.Context, ds domain.Domain
 		{Text: "暂停域名", CallbackData: fmt.Sprintf("pause|%s|%s|yes", ds.Source, ds.Domain)},
 		{Text: "恢复暂停", CallbackData: fmt.Sprintf("pause|%s|%s|no", ds.Source, ds.Domain)},
 		{Text: "查询解析", CallbackData: fmt.Sprintf("DNS|%s|%s", ds.Source, ds.Domain)},
+		{Text: "删除域名", CallbackData: fmt.Sprintf("delete|%s|%s", ds.Source, ds.Domain)},
 	}}
 	if err := n.Sender.SendWithButtons(ctx, msg, buttons); err != nil {
 		log.Printf("发送 CF 域名提醒失败: %v", err)

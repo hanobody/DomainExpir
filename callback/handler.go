@@ -82,5 +82,20 @@ func HandleCallback(callbackData string, user *tgbotapi.User) {
 
 			telegram.SendTelegramAlert(sb.String())
 		}()
+	case "delete":
+		go func() {
+			account := cfclient.GetAccountByLabel(accountLabel)
+			if account == nil {
+				log.Printf("未找到账号: %s", accountLabel)
+				return
+			}
+			err := cfclient.DeleteDomain(*account, domain)
+			if err != nil {
+				telegram.SendTelegramAlert(fmt.Sprintf("删除域名失败: %s-----%s (%v)", domain, accountLabel, err))
+				return
+			}
+			telegram.SendTelegramAlert(fmt.Sprintf("删除域名成功: %s-----%s", domain, accountLabel))
+		}()
 	}
+
 }

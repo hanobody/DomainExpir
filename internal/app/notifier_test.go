@@ -47,7 +47,7 @@ func (f *fakeSender) StartListener(ctx context.Context, handleCallback func(data
 
 type fakeCF struct{ deleted []string }
 
-func (f *fakeCF) FetchActiveDomains(ctx context.Context, account config.CF) ([]cfclient.DomainInfo, error) {
+func (f *fakeCF) FetchAllDomains(ctx context.Context, account config.CF) ([]cfclient.DomainInfo, error) {
 	return nil, nil
 }
 func (f *fakeCF) ListDNSRecords(ctx context.Context, account config.CF, domain string) ([]cloudflare.DNSRecord, error) {

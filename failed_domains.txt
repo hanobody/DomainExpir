@@ -1,71 +1,526 @@
 gamestore.us.com|Shengshi6688|未找到到期时间字段: gamestore.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "GAMESTORE.US.COM".
->>> Last update of whois database: 2026-01-03T05:51:18Z <<<
+>>> Last update of whois database: 2026-01-03T09:42:57Z <<<
 
-NOTICE:...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1956 msec
+% WHEN: Sat Jan 03 17:43:08 CST 2026
 playstore.us.com|Shengshi6688|未找到到期时间字段: playstore.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "PLAYSTORE.US.COM".
->>> Last update of whois database: 2026-01-03T05:51:46Z <<<
+>>> Last update of whois database: 2026-01-03T09:43:26Z <<<
 
-NOTICE:...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1372 msec
+% WHEN: Sat Jan 03 17:43:36 CST 2026
+vp55.io|Shengshi6688|context deadline exceeded
 vpbet1.ph|Shengshi6688|未找到到期时间字段: vpbet1.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet1.ph
 vpbet2.ph|Shengshi6688|未找到到期时间字段: vpbet2.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet2.ph
 vpbet3.ph|Shengshi6688|未找到到期时间字段: vpbet3.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet3.ph
+vpbet3.us|Shengshi6688|context deadline exceeded
 vpbet.br.com|Shengshi6688|未找到到期时间字段: vpbet.br.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.BR.COM".
->>> Last update of whois database: 2026-01-03T05:52:37Z <<<
+>>> Last update of whois database: 2026-01-03T09:44:57Z <<<
 
-NOTICE: The exp...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 918 msec
+% WHEN: Sat Jan 03 17:45:12 CST 2026
 vpbet.jpn.com|Shengshi6688|未找到到期时间字段: vpbet.jpn.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.JPN.COM".
->>> Last update of whois database: 2026-01-03T05:52:51Z <<<
+>>> Last update of whois database: 2026-01-03T09:45:11Z <<<
 
-NOTICE: The e...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1690 msec
+% WHEN: Sat Jan 03 17:45:17 CST 2026
 vpbet.sa.com|Shengshi6688|未找到到期时间字段: vpbet.sa.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.SA.COM".
->>> Last update of whois database: 2026-01-03T05:52:51Z <<<
+>>> Last update of whois database: 2026-01-03T09:45:11Z <<<
 
-NOTICE: The exp...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1193 msec
+% WHEN: Sat Jan 03 17:45:23 CST 2026
 vpgame1.us.com|Shengshi6688|未找到到期时间字段: vpgame1.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME1.US.COM".
->>> Last update of whois database: 2026-01-03T05:52:51Z <<<
+>>> Last update of whois database: 2026-01-03T09:45:26Z <<<
 
-NOTICE: The...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1225 msec
+% WHEN: Sat Jan 03 17:45:32 CST 2026
 vpgame2.us.com|Shengshi6688|未找到到期时间字段: vpgame2.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME2.US.COM".
->>> Last update of whois database: 2026-01-03T05:53:06Z <<<
+>>> Last update of whois database: 2026-01-03T09:45:26Z <<<
 
-NOTICE: The...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1114 msec
+% WHEN: Sat Jan 03 17:45:38 CST 2026
+vpgame3.us|Shengshi6688|context deadline exceeded
 vpgame3.us.com|Shengshi6688|未找到到期时间字段: vpgame3.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME3.US.COM".
->>> Last update of whois database: 2026-01-03T05:53:06Z <<<
+>>> Last update of whois database: 2026-01-03T09:45:42Z <<<
 
-NOTICE: The...
-vpslot15.us|Shengshi6688|未找到到期时间字段: vpslot15.us 查询失败: WHOIS错误: whois: read from whois server failed: read tcp 172.16.30.17:52230->54.151.0.246:43: read: connection reset by peer
-vpslot4.us|Shengshi6688|context deadline exceeded
-funspin.co|yuang6496|未找到到期时间字段: funspin.co 查询失败: WHOIS错误: whois: read from whois server failed: read tcp 172.16.30.17:42766->54.215.111.135:43: read: connection reset by peer
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1521 msec
+% WHEN: Sat Jan 03 17:45:58 CST 2026
+vpgenting.my|Shengshi6688|context deadline exceeded
+vpslot.us|Shengshi6688|context deadline exceeded
 gamestores.us.com|yuang6496|未找到到期时间字段: gamestores.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "GAMESTORES.US.COM".
->>> Last update of whois database: 2026-01-03T05:55:23Z <<<
+>>> Last update of whois database: 2026-01-03T09:47:59Z <<<
 
-NOTIC...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1114 msec
+% WHEN: Sat Jan 03 17:48:10 CST 2026
 vp88.ph|yuang6496|未找到到期时间字段: vp88.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vp88.ph
 vpbet188.ph|yuang6496|未找到到期时间字段: vpbet188.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet188.ph
 vpbet1.us.com|yuang6496|未找到到期时间字段: vpbet1.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET1.US.COM".
->>> Last update of whois database: 2026-01-03T05:56:08Z <<<
+>>> Last update of whois database: 2026-01-03T09:48:27Z <<<
 
-NOTICE: The e...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1227 msec
+% WHEN: Sat Jan 03 17:48:45 CST 2026
 vpbet5.ph|yuang6496|未找到到期时间字段: vpbet5.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet5.ph
 vpbet6.ph|yuang6496|未找到到期时间字段: vpbet6.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet6.ph
 vpbet7.ph|yuang6496|未找到到期时间字段: vpbet7.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet7.ph
 vpbet88.ph|yuang6496|未找到到期时间字段: vpbet88.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet88.ph
 vpbet8.ph|yuang6496|未找到到期时间字段: vpbet8.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet8.ph
 vpbet.eu.com|yuang6496|未找到到期时间字段: vpbet.eu.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.EU.COM".
->>> Last update of whois database: 2026-01-03T05:56:23Z <<<
+>>> Last update of whois database: 2026-01-03T09:48:43Z <<<
 
-NOTICE: The exp...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 2108 msec
+% WHEN: Sat Jan 03 17:49:01 CST 2026
 vpbet.ph|yuang6496|未找到到期时间字段: vpbet.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet.ph
 vpbet.us.com|yuang6496|未找到到期时间字段: vpbet.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.US.COM".
->>> Last update of whois database: 2026-01-03T05:56:37Z <<<
+>>> Last update of whois database: 2026-01-03T09:49:14Z <<<
 
-NOTICE: The exp...
-vpgame.us|yuang6496|未找到到期时间字段: vpgame.us 查询失败: WHOIS错误: whois: read from whois server failed: read tcp 172.16.30.17:39892->54.151.0.246:43: read: connection reset by peer
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 734 msec
+% WHEN: Sat Jan 03 17:49:20 CST 2026
+vpgame5.us|yuang6496|context deadline exceeded
 vpgame.us.com|yuang6496|未找到到期时间字段: vpgame.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME.US.COM".
->>> Last update of whois database: 2026-01-03T05:56:52Z <<<
+>>> Last update of whois database: 2026-01-03T09:49:28Z <<<
 
-NOTICE: The e...
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+% Query time: 1012 msec
+% WHEN: Sat Jan 03 17:49:44 CST 2026
 vpjili.ph|yuang6496|未找到到期时间字段: vpjili.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpjili.ph
-vpslot11.us|yuang6496|未找到到期时间字段: vpslot11.us 查询失败: WHOIS错误: whois: read from whois server failed: read tcp 172.16.30.17:58932->54.151.0.246:43: read: connection reset by peer
-vpslot9.us|yuang6496|未找到到期时间字段: vpslot9.us 查询失败: WHOIS错误: whois: read from whois server failed: read tcp 172.16.30.17:56054->54.215.111.135:43: read: connection reset by peer
 vpwin.ph|yuang6496|未找到到期时间字段: vpwin.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpwin.ph

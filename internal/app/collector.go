@@ -17,5 +17,5 @@ func (c *Collector) Collect(ctx context.Context) ([]domain.DomainSource, error) 
 	if c.Service == nil {
 		return nil, ErrMissingDependencies
 	}
-	return c.Service.CollectAll(c.Accounts)
+	return c.Service.CollectActiveNotPaused(c.Accounts)
 }

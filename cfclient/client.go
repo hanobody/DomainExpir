@@ -15,11 +15,13 @@ type DomainInfo struct {
 	Domain string
 	Source string
 	IsCF   bool
+	Status string
+	Paused bool
 }
 
 // Client 定义了 Cloudflare 相关操作的抽象接口
 type Client interface {
-	FetchActiveDomains(ctx context.Context, account config.CF) ([]DomainInfo, error)
+	FetchAllDomains(ctx context.Context, account config.CF) ([]DomainInfo, error)
 	ListDNSRecords(ctx context.Context, account config.CF, domain string) ([]cloudflare.DNSRecord, error)
 	PauseDomain(ctx context.Context, account config.CF, domain string, pause bool) error
 	DeleteDomain(ctx context.Context, account config.CF, domain string) error
@@ -131,36 +133,44 @@ func PauseDomain(account config.CF, domain string, pause bool) error {
 	return NewClient().PauseDomain(context.Background(), account, domain, pause)
 }
 
-// FetchActiveDomains 返回账户下处于 active 且未 paused 的域名
-func (c *apiClient) FetchActiveDomains(ctx context.Context, account config.CF) ([]DomainInfo, error) {
+func (c *apiClient) FetchAllDomains(ctx context.Context, account config.CF) ([]DomainInfo, error) {
+
 	ctx, cancel := ensureTimeout(ctx)
 	defer cancel()
 
 	api, err := cloudflare.NewWithAPIToken(account.APIToken)
 	if err != nil {
-		return nil, fmt.Errorf("初始化 Cloudflare 客户端失败 [%s]: %v", account.Label, err)
+		return nil, fmt.Errorf(
+			"初始化 Cloudflare 客户端失败 [%s]: %v",
+			account.Label, err,
+		)
 	}
 
-	zones, err := api.ListZonesContext(ctx, cloudflare.WithZoneFilters("", "", "active"))
+	zones, err := api.ListZonesContext(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("获取域名失败 [%s]: %v", account.Label, err)
+		return nil, fmt.Errorf(
+			"获取域名失败 [%s]: %v",
+			account.Label, err,
+		)
 	}
 
-	var out []DomainInfo
+	out := make([]DomainInfo, 0, len(zones.Result))
+
 	for _, z := range zones.Result {
-		if !z.Paused {
-			out = append(out, DomainInfo{
-				Domain: z.Name,
-				Source: account.Label,
-				IsCF:   true,
-			})
-		}
+		out = append(out, DomainInfo{
+			Domain: z.Name,
+			Source: account.Label,
+			IsCF:   true,
+			Status: z.Status,
+			Paused: z.Paused,
+		})
 	}
+
 	return out, nil
 }
 
-func FetchActiveDomains(account config.CF) ([]DomainInfo, error) {
-	return NewClient().FetchActiveDomains(context.Background(), account)
+func FetchAllDomains(account config.CF) ([]DomainInfo, error) {
+	return NewClient().FetchAllDomains(context.Background(), account)
 }
 
 // GetAccountByLabel 返回配置中与 label 匹配的 Cloudflare 账号指针，找不到则返回 nil

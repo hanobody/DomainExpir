@@ -104,9 +104,10 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 }
 
 func truncateReason(reason string) string {
-	const maxLen = 200
-	if len(reason) <= maxLen {
-		return reason
-	}
-	return reason[:maxLen] + "..."
+	// const maxLen = 200
+	// if len(reason) <= maxLen {
+	// 	return reason
+	// }
+	// return reason[:maxLen] + "..."
+	return reason
 }
