@@ -18,6 +18,7 @@ func ExtractExpiry(result string) (string, bool) {
 	// var dateRegex = regexp.MustCompile(
 	// 	`\b\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?\b`,
 	// )
+	// 先不要启用兜底匹配，避免误伤其他日期字段
 
 	layouts := []string{
 		"2006-01-02",
@@ -66,30 +67,6 @@ type Button struct {
 	CallbackData string
 }
 
-// func CheckWhois(domain string) string {
-// 	client := &rdap.Client{}
-
-// 	d, err := client.QueryDomain(domain)
-// 	if err == nil {
-// 		for _, event := range d.Events {
-// 			if event.Action == "expiration" {
-// 				return fmt.Sprintf("%s: RDAP Expiration Date: %s", domain, event.Date)
-// 			}
-// 		}
-// 	}
-// 	result, err := whois.Whois(domain)
-// 	if err != nil {
-// 		return fmt.Sprintf("%s 查询失败:  WHOIS错误: %v", domain, err)
-// 	}
-
-// 	for _, line := range strings.Split(result, "\n") {
-// 		if strings.Contains(strings.ToLower(line), "expir") {
-// 			return fmt.Sprintf("%s: %s", domain, line)
-// 		}
-// 	}
-
-//		return fmt.Sprintf("[%s]%s: ", domain, result)
-//	}
 func CheckWhois(domain string) string {
 	client := &rdap.Client{}
 

@@ -13,7 +13,7 @@ import (
 type Sender interface {
 	Send(ctx context.Context, msg string) error
 	SendWithButtons(ctx context.Context, msg string, buttons [][]Button) error
-	StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User)) error
+	StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User), handleMessage func(msg *tgbotapi.Message)) error
 }
 
 type NoopSender struct{}
@@ -22,7 +22,7 @@ func (NoopSender) Send(ctx context.Context, msg string) error { return nil }
 func (NoopSender) SendWithButtons(ctx context.Context, msg string, buttons [][]Button) error {
 	return nil
 }
-func (NoopSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User)) error {
+func (NoopSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User), handleMessage func(msg *tgbotapi.Message)) error {
 	<-ctx.Done()
 	return nil
 }
@@ -114,7 +114,7 @@ func (s *BotSender) sendWithMarkup(ctx context.Context, msg tgbotapi.MessageConf
 	return nil
 }
 
-func (s *BotSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User)) error {
+func (s *BotSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User), handleMessage func(msg *tgbotapi.Message)) error {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 	updates := s.bot.GetUpdatesChan(u)
@@ -123,10 +123,13 @@ func (s *BotSender) StartListener(ctx context.Context, handleCallback func(data 
 		case <-ctx.Done():
 			return ctx.Err()
 		case up := <-updates:
-			if up.CallbackQuery != nil {
+			if up.CallbackQuery != nil && handleCallback != nil {
 				handleCallback(up.CallbackQuery.Data, up.CallbackQuery.From)
 				cb := tgbotapi.NewCallback(up.CallbackQuery.ID, "操作已收到")
 				_, _ = s.bot.Request(cb)
+			}
+			if up.Message != nil && handleMessage != nil {
+				handleMessage(up.Message)
 			}
 		}
 	}

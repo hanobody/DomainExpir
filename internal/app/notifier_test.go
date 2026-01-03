@@ -40,7 +40,7 @@ func (f *fakeSender) SendWithButtons(ctx context.Context, msg string, buttons []
 	return nil
 }
 
-func (f *fakeSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User)) error {
+func (f *fakeSender) StartListener(ctx context.Context, handleCallback func(data string, user *tgbotapi.User), handleMessage func(msg *tgbotapi.Message)) error {
 	<-ctx.Done()
 	return nil
 }
@@ -60,7 +60,15 @@ func (f *fakeCF) DeleteDomain(ctx context.Context, account config.CF, domain str
 	f.deleted = append(f.deleted, domain)
 	return nil
 }
-
+func (f *fakeCF) GetZoneDetails(ctx context.Context, account config.CF, domain string) (cfclient.ZoneDetail, error) {
+	return cfclient.ZoneDetail{}, nil
+}
+func (f *fakeCF) CreateZone(ctx context.Context, account config.CF, domain string) (cfclient.ZoneDetail, error) {
+	return cfclient.ZoneDetail{}, nil
+}
+func (f *fakeCF) UpsertDNSRecord(ctx context.Context, account config.CF, domain string, params cfclient.DNSRecordParams) (cloudflare.DNSRecord, error) {
+	return cloudflare.DNSRecord{}, nil
+}
 func TestNotifierSendsAlertsAndDeletes(t *testing.T) {
 	sender := &fakeSender{}
 	cf := &fakeCF{}

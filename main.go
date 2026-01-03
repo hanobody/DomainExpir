@@ -27,6 +27,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
+	cfClient := cfclient.NewClient()
+
 	var sender telegram.Sender
 	botSender, err := telegram.NewBotSender(
 		config.Cfg.Telegram.BotToken,
@@ -43,14 +45,15 @@ func main() {
 		sender = botSender
 	}
 
+	commandHandler := telegram.NewCommandHandler(cfClient, sender, config.Cfg.CloudflareAccounts, int64(config.Cfg.Telegram.ChatID))
+
 	go func() {
-		if err := sender.StartListener(ctx, callback.HandleCallback); err != nil {
+		if err := sender.StartListener(ctx, callback.HandleCallback, commandHandler.HandleMessage); err != nil {
 			log.Printf("Telegram 监听停止: %v", err)
 		}
 	}()
 
 	repository := domain.NewFileRepository(config.Cfg.DomainFiles, expiringFile, failedFile)
-	cfClient := cfclient.NewClient()
 	service := domain.NewService(cfClient, repository)
 
 	collector := &app.Collector{Service: service, Accounts: config.Cfg.CloudflareAccounts}

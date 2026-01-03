@@ -1,5 +1,5 @@
 gamestore.us.com|Shengshi6688|未找到到期时间字段: gamestore.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "GAMESTORE.US.COM".
->>> Last update of whois database: 2026-01-03T09:42:57Z <<<
+>>> Last update of whois database: 2026-01-03T12:12:42Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -35,10 +35,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1956 msec
-% WHEN: Sat Jan 03 17:43:08 CST 2026
+% Query time: 938 msec
+% WHEN: Sat Jan 03 20:12:52 CST 2026
 playstore.us.com|Shengshi6688|未找到到期时间字段: playstore.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "PLAYSTORE.US.COM".
->>> Last update of whois database: 2026-01-03T09:43:26Z <<<
+>>> Last update of whois database: 2026-01-03T12:13:13Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -74,15 +74,14 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1372 msec
-% WHEN: Sat Jan 03 17:43:36 CST 2026
-vp55.io|Shengshi6688|context deadline exceeded
+% Query time: 723 msec
+% WHEN: Sat Jan 03 20:13:22 CST 2026
 vpbet1.ph|Shengshi6688|未找到到期时间字段: vpbet1.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet1.ph
+vpbet1.us|Shengshi6688|context deadline exceeded
 vpbet2.ph|Shengshi6688|未找到到期时间字段: vpbet2.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet2.ph
 vpbet3.ph|Shengshi6688|未找到到期时间字段: vpbet3.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet3.ph
-vpbet3.us|Shengshi6688|context deadline exceeded
 vpbet.br.com|Shengshi6688|未找到到期时间字段: vpbet.br.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.BR.COM".
->>> Last update of whois database: 2026-01-03T09:44:57Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:13Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -118,10 +117,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 918 msec
-% WHEN: Sat Jan 03 17:45:12 CST 2026
+% Query time: 877 msec
+% WHEN: Sat Jan 03 20:14:25 CST 2026
 vpbet.jpn.com|Shengshi6688|未找到到期时间字段: vpbet.jpn.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.JPN.COM".
->>> Last update of whois database: 2026-01-03T09:45:11Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:13Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -157,10 +156,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1690 msec
-% WHEN: Sat Jan 03 17:45:17 CST 2026
+% Query time: 1028 msec
+% WHEN: Sat Jan 03 20:14:30 CST 2026
 vpbet.sa.com|Shengshi6688|未找到到期时间字段: vpbet.sa.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.SA.COM".
->>> Last update of whois database: 2026-01-03T09:45:11Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:13Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -196,10 +195,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1193 msec
-% WHEN: Sat Jan 03 17:45:23 CST 2026
+% Query time: 755 msec
+% WHEN: Sat Jan 03 20:14:34 CST 2026
 vpgame1.us.com|Shengshi6688|未找到到期时间字段: vpgame1.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME1.US.COM".
->>> Last update of whois database: 2026-01-03T09:45:26Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:29Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -235,10 +234,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1225 msec
-% WHEN: Sat Jan 03 17:45:32 CST 2026
+% Query time: 590 msec
+% WHEN: Sat Jan 03 20:14:43 CST 2026
 vpgame2.us.com|Shengshi6688|未找到到期时间字段: vpgame2.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME2.US.COM".
->>> Last update of whois database: 2026-01-03T09:45:26Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:44Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -274,11 +273,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1114 msec
-% WHEN: Sat Jan 03 17:45:38 CST 2026
-vpgame3.us|Shengshi6688|context deadline exceeded
+% Query time: 638 msec
+% WHEN: Sat Jan 03 20:14:49 CST 2026
 vpgame3.us.com|Shengshi6688|未找到到期时间字段: vpgame3.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME3.US.COM".
->>> Last update of whois database: 2026-01-03T09:45:42Z <<<
+>>> Last update of whois database: 2026-01-03T12:14:44Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -314,12 +312,12 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1521 msec
-% WHEN: Sat Jan 03 17:45:58 CST 2026
+% Query time: 803 msec
+% WHEN: Sat Jan 03 20:14:57 CST 2026
+vpgames.us|Shengshi6688|context deadline exceeded
 vpgenting.my|Shengshi6688|context deadline exceeded
-vpslot.us|Shengshi6688|context deadline exceeded
 gamestores.us.com|yuang6496|未找到到期时间字段: gamestores.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "GAMESTORES.US.COM".
->>> Last update of whois database: 2026-01-03T09:47:59Z <<<
+>>> Last update of whois database: 2026-01-03T12:17:00Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -355,12 +353,14 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1114 msec
-% WHEN: Sat Jan 03 17:48:10 CST 2026
+% Query time: 1127 msec
+% WHEN: Sat Jan 03 20:17:11 CST 2026
+victory-play.com|yuang6496|context deadline exceeded
+victory-play.us|yuang6496|未找到到期时间字段: victory-play.us 查询失败: WHOIS错误: whois: query for whois server failed: whois: connect to whois server failed: dial tcp: lookup whois.iana.org on 127.0.0.53:53: read udp 127.0.0.1:53347->127.0.0.53:53: i/o timeout
 vp88.ph|yuang6496|未找到到期时间字段: vp88.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vp88.ph
 vpbet188.ph|yuang6496|未找到到期时间字段: vpbet188.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet188.ph
 vpbet1.us.com|yuang6496|未找到到期时间字段: vpbet1.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET1.US.COM".
->>> Last update of whois database: 2026-01-03T09:48:27Z <<<
+>>> Last update of whois database: 2026-01-03T12:17:59Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -396,15 +396,15 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1227 msec
-% WHEN: Sat Jan 03 17:48:45 CST 2026
+% Query time: 921 msec
+% WHEN: Sat Jan 03 20:18:13 CST 2026
 vpbet5.ph|yuang6496|未找到到期时间字段: vpbet5.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet5.ph
 vpbet6.ph|yuang6496|未找到到期时间字段: vpbet6.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet6.ph
 vpbet7.ph|yuang6496|未找到到期时间字段: vpbet7.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet7.ph
 vpbet88.ph|yuang6496|未找到到期时间字段: vpbet88.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet88.ph
 vpbet8.ph|yuang6496|未找到到期时间字段: vpbet8.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet8.ph
 vpbet.eu.com|yuang6496|未找到到期时间字段: vpbet.eu.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.EU.COM".
->>> Last update of whois database: 2026-01-03T09:48:43Z <<<
+>>> Last update of whois database: 2026-01-03T12:18:13Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -440,11 +440,11 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 2108 msec
-% WHEN: Sat Jan 03 17:49:01 CST 2026
+% Query time: 1209 msec
+% WHEN: Sat Jan 03 20:18:28 CST 2026
 vpbet.ph|yuang6496|未找到到期时间字段: vpbet.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpbet.ph
 vpbet.us.com|yuang6496|未找到到期时间字段: vpbet.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPBET.US.COM".
->>> Last update of whois database: 2026-01-03T09:49:14Z <<<
+>>> Last update of whois database: 2026-01-03T12:18:44Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -480,11 +480,10 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 734 msec
-% WHEN: Sat Jan 03 17:49:20 CST 2026
-vpgame5.us|yuang6496|context deadline exceeded
+% Query time: 1934 msec
+% WHEN: Sat Jan 03 20:18:51 CST 2026
 vpgame.us.com|yuang6496|未找到到期时间字段: vpgame.us.com: WHOIS未找到明确的到期字段，原文摘要: No match for "VPGAME.US.COM".
->>> Last update of whois database: 2026-01-03T09:49:28Z <<<
+>>> Last update of whois database: 2026-01-03T12:18:59Z <<<
 
 NOTICE: The expiration date displayed in this record is the date the
 registrar's sponsorship of the domain name registration in the registry is
@@ -520,7 +519,9 @@ reserves the right to modify these terms at any time.
 The Registry database contains ONLY .COM, .NET, .EDU domains and
 Registrars.
 
-% Query time: 1012 msec
-% WHEN: Sat Jan 03 17:49:44 CST 2026
+% Query time: 924 msec
+% WHEN: Sat Jan 03 20:19:08 CST 2026
 vpjili.ph|yuang6496|未找到到期时间字段: vpjili.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpjili.ph
+vpslot7.us|yuang6496|context deadline exceeded
 vpwin.ph|yuang6496|未找到到期时间字段: vpwin.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vpwin.ph
+vp88.ph|aws.txt|未找到到期时间字段: vp88.ph 查询失败: WHOIS错误: whois: no whois server found for domain: vp88.ph

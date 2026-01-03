@@ -20,9 +20,10 @@ type Telegram struct {
 }
 
 type CF struct {
-	Label    string `yaml:"label"`
-	Email    string `yaml:"email"`
-	APIToken string `yaml:"apiToken"`
+	Label     string `yaml:"label"`
+	Email     string `yaml:"email"`
+	APIToken  string `yaml:"apiToken"`
+	AccountID string `yaml:"accountID"`
 }
 
 var Cfg Config

@@ -104,6 +104,7 @@ func (c *ExpiryCheckerService) Check(ctx context.Context, domains []domain.Domai
 }
 
 func truncateReason(reason string) string {
+	// 信息太常进行截断，先不启用
 	// const maxLen = 200
 	// if len(reason) <= maxLen {
 	// 	return reason
